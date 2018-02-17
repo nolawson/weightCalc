@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<widget xmlns   = "http://www.w3.org/ns/widgets"
+    xmlns:gap   = "http://phonegap.com/ns/1.0"
+    id          = "com.phonegap.weightcalc"
+    version     = "1.0.0" >
+
+  <name>Mars Weight Calc</name>
+
+  <description>
+      Calc weight on mars given earth weight.
+  </description>
+
+  <author href="https://build.phonegap.com" email="nolawson@umail.iu.edu">
+      Noah Lawson
+  </author>
+
+  <icon src="icon.png" />
+
+</widget>

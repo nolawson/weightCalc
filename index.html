@@ -1,0 +1,93 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Body Mass Index Calculator</title>
+	<link rel="stylesheet" href="themes/pastel.min.css" />
+	<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        <style type = "text/css">
+          #footer{
+            text-align: center;
+            font-weight: normal;
+          } // end footer
+        </style>
+
+
+	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+        <script type = "text/javascript">
+
+	  //automatically fills weight textbox with previously used weight that has been locally stored
+	  function startup(){
+	    $('#txtWeight').val(localStorage.getItem("weight"));
+	  }
+
+          function calcMoonWeight(){
+	    if (localStorage.getItem("weight") == "null" || localStorage.getItem("weight") == null){
+		localStorage.setItem("weight", 165);
+	    }
+            var weight = parseInt($("#txtWeight").val())
+	    var spaceweight = 0;
+
+	    if(document.getElementById('pMoon').checked) {
+		spaceweight = weight * 0.17 + " lbs on the moon"
+	    }else if(document.getElementById('pMars').checked) {
+		spaceweight = weight * 0.38  + " lbs on mars"
+  	    }
+
+	    localStorage.setItem("weight", weight);
+            $("#outplanet").html(spaceweight);
+    
+          }// end function
+
+        </script>
+
+        <!-- mobile-friendly settings -->
+        <link rel="apple-touch-icon" href="icon.png" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <div data-role="page" data-theme="a">
+    <div data-role="header" data-position="inline">
+      <h1>Space Weights</h1>
+    </div>
+    <div data-role="content" data-theme="a">
+      <form action = "">
+        <fieldset>
+          <label>weight (pounds)</label>
+          <input type = "text"
+                 id = "txtWeight"
+                 value = "165" />
+
+          <p>
+            <label>Location</label>            
+            <input type = "radio"
+                 name = "planet"
+                 id = "pMoon"
+                 value = "Moon"
+                 checked = "checked" />
+            <label for = "pMoon">Moon</label>
+          
+            <input type = "radio"
+                 name = "planet"
+                 id = "pMars"
+                 value = "Mars" />
+            <label for = "pMars">Mars</label>
+          </p>
+
+          <button type = "button"
+                  onclick = "calcMoonWeight()">
+            Calculate Weight
+          </button>
+          <label id = "outplanet">Calculated Weight</label>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
