@@ -3,11 +3,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Body Mass Index Calculator</title>
-	<link rel="stylesheet" href="themes/pastel.min.css" />
+	<link rel="stylesheet" href="themes/iupui.min.css" />
 	<link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
 	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
-	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-	<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
         <style type = "text/css">
           #footer{
             text-align: center;
@@ -19,28 +17,30 @@
 	<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
         <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
 
-        <script type = "text/javascript">
+<	script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+        <script type="text/javascript">
+          function calcBMI(){
+            var feet = parseInt($("#txtFeet").val());
+            var inches = parseInt($("#txtInches").val());
+            var weight = parseInt($("#txtWeight").val());
 
-	  //automatically fills weight textbox with previously used weight that has been locally stored
-	  function startup(){
-	    $('#txtWeight').val(localStorage.getItem("weight"));
-	  }
+            var height = (feet * 12) + inches;
+            var bmi = (weight / (height * height)) * 703
 
-          function calcMoonWeight(){
-	    if (localStorage.getItem("weight") == "null" || localStorage.getItem("weight") == null){
-		localStorage.setItem("weight", 165);
-	    }
-            var weight = parseInt($("#txtWeight").val())
-	    var spaceweight = 0;
+            $("#outBMI").html(bmi);
+            var description = "";
 
-	    if(document.getElementById('pMoon').checked) {
-		spaceweight = weight * 0.17 + " lbs on the moon"
-	    }else if(document.getElementById('pMars').checked) {
-		spaceweight = weight * 0.38  + " lbs on mars"
-  	    }
+            if (bmi < 18.5){
+              description = "underweight";
+            } else if (bmi < 25){
+              description = "normal";
+            } else if (bmi < 30){
+              description = "overweight";
+            } else {
+              description = "obese"
+            } // end if
 
-	    localStorage.setItem("weight", weight);
-            $("#outplanet").html(spaceweight);
+            $("#outDesc").html(description);
     
           }// end function
 
@@ -54,39 +54,34 @@
 <body>
   <div data-role="page" data-theme="a">
     <div data-role="header" data-position="inline">
-      <h1>Space Weights</h1>
+      <h1>Body Mass Index!</h1>
     </div>
     <div data-role="content" data-theme="a">
       <form action = "">
         <fieldset>
+          <label>height (feet)</label>
+          <input type = "text"
+                 id = "txtFeet"
+                 value = "5" />
+          <label>height (inches)</label>
+          <input type = "text"
+                 id = "txtInches"
+                 value = "6"/>
           <label>weight (pounds)</label>
           <input type = "text"
                  id = "txtWeight"
-                 value = "165" />
-
-          <p>
-            <label>Location</label>            
-            <input type = "radio"
-                 name = "planet"
-                 id = "pMoon"
-                 value = "Moon"
-                 checked = "checked" />
-            <label for = "pMoon">Moon</label>
-          
-            <input type = "radio"
-                 name = "planet"
-                 id = "pMars"
-                 value = "Mars" />
-            <label for = "pMars">Mars</label>
-          </p>
-
+                 value = "150" />
           <button type = "button"
-                  onclick = "calcMoonWeight()">
-            Calculate Weight
+                  onclick = "calcBMI()">
+            Calculate BMI
           </button>
-          <label id = "outplanet">Calculated Weight</label>
+          <label id = "outBMI">BMI</label>
+          <label id = "outDesc">description</label>
         </fieldset>
       </form>
+    </div>
+    <div data-role="footer" data-position = "fixed" id = "footer">
+      Andy Harris, IUPUI
     </div>
   </div>
 </body>
